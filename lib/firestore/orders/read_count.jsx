@@ -2,17 +2,16 @@
 
 import { db } from "@/lib/firebase";
 import {
-  average,
   collection,
-  count,
-  getAggregateFromServer,
-  getCountFromServer,
   query,
-  sum,
   where,
+  getDocs,
+  getCountFromServer,
+  Timestamp,
 } from "firebase/firestore";
 import useSWR from "swr";
 
+// Function to get orders count and total revenue
 export const getOrdersCounts = async ({ date }) => {
   const ref = collection(db, `orders`);
   let q = query(ref);
@@ -21,55 +20,71 @@ export const getOrdersCounts = async ({ date }) => {
     const fromDate = new Date(date);
     fromDate.setHours(0, 0, 0, 0);
     const toDate = new Date(date);
-    toDate.setHours(24, 0, 0, 0);
+    toDate.setHours(23, 59, 59, 999); // Full day until the end of the day
+
     q = query(
-      q,
-      where("timestampCreate", ">=", fromDate),
-      where("timestampCreate", "<=", toDate)
+      ref,
+      where("timestampCreate", ">=", Timestamp.fromDate(fromDate)),
+      where("timestampCreate", "<=", Timestamp.fromDate(toDate))
     );
   }
 
-  const data = await getAggregateFromServer(q, {
-    totalRevenue: sum("payment.amount"),
-    totalOrders: count(),
+  // Get documents
+  const snapshot = await getDocs(q);
+  const totalOrders = snapshot.size;
+
+  // Calculate total revenue by iterating over documents (since Firestore doesn't have aggregation queries)
+  let totalRevenue = 0;
+  snapshot.forEach((doc) => {
+    const paymentAmount = doc.data().payment?.amount || 0;
+    totalRevenue += paymentAmount;
   });
+
   if (date) {
     return {
       date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
-      data: data.data(),
+      data: { totalOrders, totalRevenue },
     };
   }
-  return data.data();
+
+  return { totalOrders, totalRevenue };
 };
 
+// Function to get total orders count by multiple dates
 const getTotalOrdersCounts = async (dates) => {
   let promisesList = [];
   for (let i = 0; i < dates?.length; i++) {
     const date = dates[i];
-    promisesList.push(getOrdersCounts({ date: date }));
+    promisesList.push(getOrdersCounts({ date }));
   }
   const list = await Promise.all(promisesList);
   return list;
 };
 
+// Hook to get orders count for the current day or all-time if no date is passed
 export function useOrdersCounts() {
-  const { data, error, isLoading } = useSWR("ordrs_counts", (key) =>
+  const { data, error, isLoading } = useSWR("orders_counts", () =>
     getOrdersCounts({ date: null })
   );
+
   if (error) {
-    console.log(error?.message);
+    console.error(error.message);
   }
+
   return { data, error, isLoading };
 }
 
+// Hook to get orders count for multiple days
 export function useOrdersCountsByTotalDays({ dates }) {
   const { data, error, isLoading } = useSWR(
     ["orders_count", dates],
-    ([key, dates]) =>
-      getTotalOrdersCounts(dates?.sort((a, b) => a?.getTime() - b?.getTime()))
+    ([, dates]) =>
+      getTotalOrdersCounts(dates?.sort((a, b) => a.getTime() - b.getTime()))
   );
+
   if (error) {
-    console.log(error?.message);
+    console.error(error.message);
   }
+
   return { data, error, isLoading };
 }

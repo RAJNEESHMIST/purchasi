@@ -26,8 +26,10 @@ export default async function Home() {
       getBrands(),
     ]);
 
+  // console.log("my product ",products)
+
   return (
-    <main className="w-screen h-screen overflow-x-hidden overflow-y-auto">
+    <main className="w-screen h-screen overflow-x-hidden overflow-y-auto bg-white">
       <Header />
       <FeaturedProductSlider featuredProducts={featuredProducts} />
       <Collections collections={collections} />

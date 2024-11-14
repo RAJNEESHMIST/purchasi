@@ -7,7 +7,7 @@ export default function Page() {
       <div className="flex justify-between items-center">
         <h1 className="text-xl">Products</h1>
         <Link href={`/admin/products/form`}>
-          <button className="bg-[#313131] text-sm text-white px-4 py-2 rounded-lg">
+          <button className="bg-red-600 text-sm text-green-600 shadow-lg shadow-green-700 px-4 py-2 rounded-lg">
             Create
           </button>
         </Link>

@@ -104,11 +104,11 @@ export default function Page() {
       }}
       className="flex flex-col gap-4 p-5"
     >
-      <div className="flex justify-between w-full items-center">
-        <h1 className="font-semibold">
+      <div className="flex justify-between w-full items-center ">
+        <h1 className="font-semibold text-red-700">
           {id ? "Update Product" : "Create New Product"}
         </h1>
-        <Button isLoading={isLoading} isDisabled={isLoading} type="submit">
+        <Button isLoading={isLoading} isDisabled={isLoading} type="submit" className="bg-red-600 shadow-lg shadow-green-600">
           {id ? "Update" : "Create"}
         </Button>
       </div>

@@ -4,6 +4,9 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useUser } from "@/lib/firestore/user/read";
 import { Badge } from "@nextui-org/react";
 import { Heart, ShoppingCart } from "lucide-react";
+import { FaFaceKissWinkHeart } from "react-icons/fa6";
+import { FaCartPlus } from "react-icons/fa";
+
 import Link from "next/link";
 
 export default function HeaderClientButtons() {
@@ -23,7 +26,7 @@ export default function HeaderClientButtons() {
               title="My Favorites"
               className="h-8 w-8 flex justify-center items-center rounded-full hover:bg-gray-50"
             >
-              <Heart size={14} />
+             <FaFaceKissWinkHeart />
             </button>
           </Badge>
         )}
@@ -32,7 +35,7 @@ export default function HeaderClientButtons() {
             title="My Favorites"
             className="h-8 w-8 flex justify-center items-center rounded-full hover:bg-gray-50"
           >
-            <Heart size={14} />
+            <FaFaceKissWinkHeart />
           </button>
         )}
       </Link>
@@ -48,7 +51,7 @@ export default function HeaderClientButtons() {
               title="My Cart"
               className="h-8 w-8 flex justify-center items-center rounded-full hover:bg-gray-50"
             >
-              <ShoppingCart size={14} />
+              <FaCartPlus />
             </button>
           </Badge>
         )}
@@ -57,7 +60,7 @@ export default function HeaderClientButtons() {
             title="My Cart"
             className="h-8 w-8 flex justify-center items-center rounded-full hover:bg-gray-50"
           >
-            <ShoppingCart size={14} />
+            <FaCartPlus />
           </button>
         )}
       </Link>

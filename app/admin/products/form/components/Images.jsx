@@ -6,7 +6,7 @@ export default function Images({
   setImageList,
 }) {
   return (
-    <section className="flex flex-col gap-3 bg-white border p-4 rounded-xl">
+    <section className="flex flex-col gap-3 bg-green-400 border p-4 rounded-xl">
       <h1 className="font-semibold">Images</h1>
       <div className="flex flex-col gap-1">
         {data?.featureImageURL && !featureImage && (

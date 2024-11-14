@@ -3,40 +3,41 @@ import { Rating } from "@mui/material";
 export default function CustomerReviews() {
   const list = [
     {
-      name: "Penny albritoon",
+      name: "GOLDYY",
       message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+        "Goldyy Supplements is dedicated to providing premium, high-quality supplements that help you reach your fitness goals. Our mission is to deliver safe, effective, and scientifically-backed products that cater to every stage of your fitness journey. ",
       rating: 4.5,
       imageLink:
-        "https://emilly-store1.myshopify.com/cdn/shop/files/bakery-testi-1.jpg?v=1721992196&width=512",
+        "https://t4.ftcdn.net/jpg/05/66/23/45/360_F_566234573_0wRtGNCoV93vm3nCcBuRDIEJOq4BXlQ2.jpg",
     },
     {
-      name: "Oscar Nommanee",
+      name: "JUBAIR",
       message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+        "We prioritize quality and transparency, ensuring that each product is crafted with the finest ingredients to support your health and performance. Trust Goldyy Supplements to be your partner in achieving optimal results.",
       rating: 5,
       imageLink:
-        "https://emilly-store1.myshopify.com/cdn/shop/files/bakery-testi-5.jpg?v=1721992196&width=512",
+        "https://t4.ftcdn.net/jpg/05/66/23/45/360_F_566234573_0wRtGNCoV93vm3nCcBuRDIEJOq4BXlQ2.jpg",
     },
-    {
-      name: "Emma Watsom",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-      rating: 4.5,
-      imageLink:
-        "https://emilly-store1.myshopify.com/cdn/shop/files/bakery-testi-6.jpg?v=1721992197&width=512",
-    },
+    
   ];
   return (
     <section className="flex justify-center">
-      <div className="w-full p-5 md:max-w-[900px] flex flex-col gap-3">
-        <h1 className="text-center font-semibold text-xl">
+      <div
+  className="overflow-hidden md:p-10 p-5"
+  style={{
+    backgroundImage: `url('/images/background.jpg')`, // Use the image from the public folder
+    backgroundSize: 'cover', // Make sure the background image covers the whole div
+    backgroundPosition: 'center', // Keep the image centered
+     // Black background color for fallback and overlay effect
+  }}
+>
+        <h1 className="text-center font-semibold text-xl text-red-600 shadow-sm ">
           Our customers love
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {list?.map((item) => {
             return (
-              <div className="flex flex-col gap-2 p-4 rounded-lg justify-center items-center border">
+              <div className="flex flex-col gap-2 p-4 rounded-lg justify-center items-center bg-gradient-to-r from-green-400 to-red-500 border">
                 <img
                   src={item?.imageLink}
                   className="h-32 w-32 rounded-full object-cover"
@@ -50,7 +51,7 @@ export default function CustomerReviews() {
                   precision={item?.rating}
                   readOnly
                 />
-                <p className="text-sm text-gray-500 text-center">
+                <p className="text-sm text-black text-center">
                   {item?.message}
                 </p>
               </div>

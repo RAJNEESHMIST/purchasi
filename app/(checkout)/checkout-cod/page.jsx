@@ -4,73 +4,103 @@ import { admin, adminDB } from "@/lib/firebase_admin";
 import Link from "next/link";
 
 const fetchCheckout = async (checkoutId) => {
-  const list = await adminDB
-    .collectionGroup("checkout_sessions_cod")
-    .where("id", "==", checkoutId)
-    .get();
-  if (list.docs.length === 0) {
-    throw new Error("Invalid Checkout ID");
+  try {
+    const list = await adminDB
+      .collectionGroup("checkout_sessions_cod")
+      .where("id", "==", checkoutId)
+      .get();
+
+    if (list.empty) {
+      throw new Error("Invalid Checkout ID");
+    }
+    
+    return list.docs[0].data();
+  } catch (error) {
+    console.error("Error fetching checkout session: ", error);
+    throw error;  // Propagate error so the caller can handle it
+    
   }
-  return list.docs[0].data();
 };
 
 const processOrder = async ({ checkout }) => {
-  const order = await adminDB.doc(`orders/${checkout?.id}`).get();
-  if (order.exists) {
-    return false;
-  }
-  const uid = checkout?.metadata?.uid;
+  try {
+    const order = await adminDB.doc(`orders/${checkout?.id}`).get();
+    if (order.exists) {
+      return false;
+    }
 
-  await adminDB.doc(`orders/${checkout?.id}`).set({
-    checkout: checkout,
-    payment: {
-      amount: checkout?.line_items?.reduce((prev, curr) => {
-        return prev + curr?.price_data?.unit_amount * curr?.quantity;
-      }, 0),
-    },
-    uid: uid,
-    id: checkout?.id,
-    paymentMode: "cod",
-    timestampCreate: admin.firestore.Timestamp.now(),
-  });
+    const uid = checkout?.metadata?.uid;
 
-  const productList = checkout?.line_items?.map((item) => {
-    return {
-      productId: item?.price_data?.product_data?.metadata?.productId,
-      quantity: item?.quantity,
-    };
-  });
-
-  const user = await adminDB.doc(`users/${uid}`).get();
-
-  const productIdsList = productList?.map((item) => item?.productId);
-
-  const newCartList = (user?.data()?.carts ?? []).filter(
-    (cartItem) => !productIdsList.includes(cartItem?.id)
-  );
-
-  await adminDB.doc(`users/${uid}`).set(
-    {
-      carts: newCartList,
-    },
-    { merge: true }
-  );
-
-  const batch = adminDB.batch();
-
-  productList?.forEach((item) => {
-    batch.update(adminDB.doc(`products/${item?.productId}`), {
-      orders: admin.firestore.FieldValue.increment(item?.quantity),
+    await adminDB.doc(`orders/${checkout?.id}`).set({
+      checkout: checkout,
+      payment: {
+        amount: checkout?.line_items?.reduce((prev, curr) => {
+          return prev + curr?.price_data?.unit_amount * curr?.quantity;
+        }, 0),
+      },
+      uid: uid,
+      id: checkout?.id,
+      paymentMode: "cod",
+      timestampCreate: admin.firestore.Timestamp.now(),
     });
-  });
 
-  await batch.commit();
-  return true;
+    const productList = checkout?.line_items?.map((item) => {
+      return {
+        productId: item?.price_data?.product_data?.metadata?.productId,
+        quantity: item?.quantity,
+      };
+    });
+
+    const user = await adminDB.doc(`users/${uid}`).get();
+
+    const productIdsList = productList?.map((item) => item?.productId);
+
+    const newCartList = (user?.data()?.carts ?? []).filter(
+      (cartItem) => !productIdsList.includes(cartItem?.id)
+    );
+
+    await adminDB.doc(`users/${uid}`).set(
+      {
+        carts: newCartList,
+      },
+      { merge: true }
+    );
+
+    const batch = adminDB.batch();
+
+    productList?.forEach((item) => {
+      batch.update(adminDB.doc(`products/${item?.productId}`), {
+        orders: admin.firestore.FieldValue.increment(item?.quantity),
+      });
+    });
+
+    await batch.commit();
+    return true;
+  } catch (error) {
+    console.error("Error processing order: ", error);
+    throw error;  // Propagate error so the caller can handle it
+  }
 };
 
 export default async function Page({ searchParams }) {
   const { checkout_id } = searchParams;
-  const checkout = await fetchCheckout(checkout_id);
+  let checkout;
+
+  try {
+    checkout = await fetchCheckout(checkout_id);
+  } catch (error) {
+    return (
+      <main>
+        <Header />
+        <section className="min-h-screen flex flex-col gap-3 justify-center items-center">
+          <h1 className="text-2xl font-semibold text-red-600">
+            Error: {error.message}
+          </h1>
+        </section>
+        <Footer />
+      </main>
+    );
+  }
 
   const result = await processOrder({ checkout });
 

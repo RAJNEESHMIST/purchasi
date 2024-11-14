@@ -47,7 +47,7 @@ export default function AddToCartButton({ productId, type }) {
         isDisabled={isLoading}
         onClick={handlClick}
         variant="bordered"
-        className=""
+        className=" text-red-800 bg-green-500 shadow-sm hover:text-slate-100"
       >
         {!isAdded && "Add To Cart"}
         {isAdded && "Click To Remove"}

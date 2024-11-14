@@ -67,7 +67,7 @@ export default function Sidebar() {
     },
   ];
   return (
-    <section className="sticky top-0 flex flex-col gap-10 bg-white border-r px-5 py-3 h-screen overflow-hidden w-[260px] z-50">
+    <section className="sticky top-0 flex flex-col gap-10 bg-green-400 border-r px-5 py-3 h-screen overflow-hidden w-[260px] z-50">
       <div className="flex justify-center py-4">
         <Link href={`/`}>
           <img className="h-8" src="/logo.png" alt="" />
@@ -91,7 +91,7 @@ export default function Sidebar() {
               toast.error(error?.message);
             }
           }}
-          className="flex gap-2 items-center px-3 py-2 hover:bg-indigo-100 rounded-xl w-full justify-center ease-soft-spring duration-400 transition-all"
+          className="flex gap-2 items-center px-3 py-2 hover:bg-red-300 rounded-xl w-full justify-center ease-soft-spring duration-400 transition-all"
         >
           <LogOut className="h-5 w-5" /> Logout
         </button>

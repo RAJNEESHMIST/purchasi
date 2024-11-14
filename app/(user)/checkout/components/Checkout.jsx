@@ -11,6 +11,7 @@ import { CheckSquare2Icon, Square } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { MdOutlinePayment } from "react-icons/md";
 
 export default function Checkout({ productList }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -65,10 +66,10 @@ export default function Checkout({ productList }) {
   };
 
   return (
-    <section className="flex flex-col md:flex-row  gap-3">
-      <section className="flex-1 flex flex-col gap-4 border rounded-xl p-4">
-        <h1 className="text-xl">Shipping Address</h1>
-        <div className="flex flex-col gap-2">
+    <section className="flex flex-col  md:flex-row  gap-3">
+      <section className="flex-1 flex shadow-lg bg-gradient-to-r from-green-400 to-red-500 shadow-red-600 flex-col gap-4 border rounded-2xl p-4">
+        <h1 className="text-xl text-red-900">Shipping Address</h1>
+        <div className="flex bg-green-300 flex-col gap-2">
           <input
             type="text"
             id="full-name"
@@ -78,7 +79,7 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("fullName", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
           <input
             type="tel"
@@ -89,7 +90,7 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("mobile", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
           <input
             type="email"
@@ -100,7 +101,7 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("email", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
           <input
             type="text"
@@ -111,7 +112,7 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("addressLine1", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
           <input
             type="text"
@@ -122,7 +123,7 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("addressLine2", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
           <input
             type="number"
@@ -133,7 +134,7 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("pincode", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
           <input
             type="text"
@@ -144,7 +145,7 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("city", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
           <input
             type="text"
@@ -155,7 +156,7 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("state", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
           <textarea
             type="text"
@@ -166,17 +167,17 @@ export default function Checkout({ productList }) {
             onChange={(e) => {
               handleAddress("orderNote", e.target.value);
             }}
-            className="border px-4 py-2 rounded-lg w-full focus:outline-none"
+            className="border px-4 py-2 shadow-lg shadow-red-600 rounded-lg w-full focus:outline-none"
           />
         </div>
       </section>
-      <div className="flex-1 flex flex-col gap-3">
-        <section className="flex flex-col gap-3 border rounded-xl p-4">
-          <h1 className="text-xl">Products</h1>
-          <div className="flex flex-col gap-2">
+      <div className="flex-1 flex flex-col  gap-3">
+        <section className="flex flex-col gap-3 shadow-lg shadow-red-600 bg-gradient-to-r from-green-400 to-red-500  border rounded-2xl p-4">
+          <h1 className="text-2xl text-rose-900">Products</h1>
+          <div className="flex flex-col gap-2 ">
             {productList?.map((item) => {
               return (
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center rounded-2xl bg-white">
                   <img
                     className="w-10 h-10 object-cover rounded-lg"
                     src={item?.product?.featureImageURL}
@@ -184,14 +185,14 @@ export default function Checkout({ productList }) {
                   />
                   <div className="flex-1 flex flex-col">
                     <h1 className="text-sm">{item?.product?.title}</h1>
-                    <h3 className="text-green-600 font-semibold text-[10px]">
+                    <h3 className="text-red-600 font-semibold text-[10px]">
                       ₹ {item?.product?.salePrice}{" "}
-                      <span className="text-black">X</span>{" "}
-                      <span className="text-gray-600">{item?.quantity}</span>
+                      <span className="text-green-900">X</span>{" "}
+                      <span className="text-red-600">{item?.quantity}</span>
                     </h3>
                   </div>
                   <div>
-                    <h3 className="text-sm">
+                    <h3 className="text-sm text-red-600">
                       ₹ {item?.product?.salePrice * item?.quantity}
                     </h3>
                   </div>
@@ -199,14 +200,14 @@ export default function Checkout({ productList }) {
               );
             })}
           </div>
-          <div className="flex justify-between w-full items-center p-2 font-semibold">
+          <div className="flex justify-between w-full text-xl text-red-900 items-center p-2 font-semibold">
             <h1>Total</h1>
             <h1>₹ {totalPrice}</h1>
           </div>
         </section>
-        <section className="flex flex-col gap-3 border rounded-xl p-4">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <h2 className="text-xl">Payment Mode</h2>
+        <section className="flex flex-col shadow-lg shadow-red-600 gap-3 border rounded-xl p-4 bg-gradient-to-r from-green-400 to-red-500">
+          <div className="flex flex-col  md:flex-row items-center justify-between">
+            <h2 className="text-xl text-red-900"> <MdOutlinePayment />Payment Mode</h2>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => {
@@ -215,7 +216,7 @@ export default function Checkout({ productList }) {
                 className="flex items-center gap-1 text-xs"
               >
                 {paymentMode === "prepaid" && (
-                  <CheckSquare2Icon className="text-blue-500" size={13} />
+                  <CheckSquare2Icon className="text-red-500" size={13} />
                 )}
                 {paymentMode === "cod" && <Square size={13} />}
                 Prepaid
@@ -228,24 +229,24 @@ export default function Checkout({ productList }) {
               >
                 {paymentMode === "prepaid" && <Square size={13} />}
                 {paymentMode === "cod" && (
-                  <CheckSquare2Icon className="text-blue-500" size={13} />
+                  <CheckSquare2Icon className="text-red-500" size={13} />
                 )}
                 Cash On Delivery
               </button>
             </div>
           </div>
           <div className="flex gap-1 items-center">
-            <CheckSquare2Icon className="text-blue-500" size={13} />
+            <CheckSquare2Icon className="text-red-500" size={13} />
             <h4 className="text-xs text-gray-600">
               I agree with the{" "}
-              <span className="text-blue-700">terms & conditions</span>
+              <span className="text-red-700">terms & conditions</span>
             </h4>
           </div>
           <Button
             isLoading={isLoading}
             isDisabled={isLoading}
             onClick={handlePlaceOrder}
-            className="bg-black text-white"
+            className="bg-red-800 shadow-lg shadow-green-700 text-green-950"
           >
             Place Order
           </Button>

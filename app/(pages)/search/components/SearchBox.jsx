@@ -35,7 +35,7 @@ export default function SearchBox() {
         }}
         placeholder="Enter Product Name ..."
         type="text"
-        className="border px-5 py-2 rounded-xl bg-white focus:outline-none"
+        className="border px-5 py-2 rounded-xl bg-red-300 focus:outline-none"
         required
       />
       <Button type="submit">

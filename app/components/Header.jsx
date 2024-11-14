@@ -1,11 +1,20 @@
+"use client";
+import { useState } from 'react';
 import { Heart, Search, ShoppingCart, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 import AuthContextProvider from "@/contexts/AuthContext";
+import { RiAccountPinBoxFill } from "react-icons/ri";
 import HeaderClientButtons from "./HeaderClientButtons";
-import AdminButton from "./AdminButton";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { TbHomeSearch } from "react-icons/tb";
+import { HiMenu, HiX } from "react-icons/hi";
+import AdminButton from './AdminButton';
+ // Import icons for menu toggle
 
 export default function Header() {
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const menuList = [
     {
       name: "Home",
@@ -20,32 +29,60 @@ export default function Header() {
       link: "/contact-us",
     },
   ];
+
   return (
-    <nav className="sticky top-0 z-50 bg-white bg-opacity-65 backdrop-blur-2xl py-3 px-4 md:py-4 md:px-16 border-b flex items-center justify-between">
+    <nav className="sticky top-0 z-50 bg-gradient-to-r from-red-600 to-green-600 p-4 bg-opacity-65 backdrop-blur-2xl py-3 px-4 md:py-4 md:px-16 border-b flex items-center justify-between">
       <Link href={"/"}>
-        <img className="h-4 md:h-5" src="/logo.png" alt="Logo" />
+        <img className="h-8 md:h-10 hover:bg-red-400" src="/logo.png" alt="Logo" />
       </Link>
+
+      {/* Desktop Menu */}
       <div className="hidden md:flex gap-2 items-center font-semibold">
-        {menuList?.map((item) => {
-          return (
-            <Link href={item?.link}>
-              <button className="text-sm px-4 py-2 rounded-lg hover:bg-gray-50">
-                {item?.name}
-              </button>
-            </Link>
-          );
-        })}
+        {menuList.map((item) => (
+          <Link href={item.link} key={item.name}>
+            <button className="text-sm px-4 py-2 rounded-lg hover:bg-red-300">
+              {item.name}
+            </button>
+          </Link>
+        ))}
       </div>
-      <div className="flex items-center gap-1">
+
+      {/* Mobile Menu Toggle Button */}
+      <button
+        className="md:hidden text-2xl text-red-900"
+        onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+      >
+        {isMobileMenuOpen ? <HiX /> : <HiMenu />}
+      </button>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-16 left-0 w-full bg-gradient-to-r from-red-400 to-green-500 p-4 md:hidden">
+          <ul className="flex flex-col gap-2 items-center font-semibold">
+            {menuList.map((item) => (
+              <li key={Math.random()}>
+                <Link href={item.link}>
+                  <button className="text-sm px-4 py-2 rounded-lg hover:bg-red-300">
+                    {item.name}
+                  </button>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Action Icons */}
+      <div className="flex items-center gap-1 text-2xl text-red-900">
         <AuthContextProvider>
           <AdminButton />
         </AuthContextProvider>
         <Link href={`/search`}>
           <button
             title="Search Products"
-            className="h-8 w-8 flex justify-center items-center rounded-full hover:bg-gray-50"
+            className="h-8 w-8 flex justify-center items-center rounded-full hover:bg-red-300"
           >
-            <Search size={14} />
+            <TbHomeSearch />
           </button>
         </Link>
         <AuthContextProvider>
@@ -54,9 +91,9 @@ export default function Header() {
         <Link href={`/account`}>
           <button
             title="My Account"
-            className="h-8 w-8 flex justify-center items-center rounded-full hover:bg-gray-50"
+            className="h-8 w-8 flex justify-center items-center rounded-full hover:bg-red-300"
           >
-            <UserCircle2 size={14} />
+            <RiAccountPinBoxFill />
           </button>
         </Link>
         <AuthContextProvider>

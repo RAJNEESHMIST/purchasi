@@ -35,8 +35,8 @@ export default function Reviews({ productId }) {
   };
 
   return (
-    <div className="flex flex-col gap-3 p-3 rounded-xl border w-full">
-      <h1 className="text-lg font-semibold">Reviews</h1>
+    <div className="flex flex-col gap-3 p-3 rounded-xl bg-gradient-to-r from-green-300 to-red-300 border w-full">
+      <h1 className="text-lg text-red-600 font-semibold">Reviews</h1>
       <div className="flex flex-col gap-4">
         {data?.map((item) => {
           return (
@@ -59,12 +59,13 @@ export default function Reviews({ productId }) {
                       isDisabled={isLoading}
                       isLoading={isLoading}
                       onClick={handleDelete}
+                      className="rounded-xl bg-green-700 text-red-900 shadow-sm shadow-red-600 text-2xl"
                     >
                       <Trash2 size={12} />
                     </Button>
                   )}
                 </div>
-                <p className="text-sm text-gray-700 pt-1">{item?.message}</p>
+                <p className="text-sm text-red-700 pt-1">{item?.message}</p>
               </div>
             </div>
           );

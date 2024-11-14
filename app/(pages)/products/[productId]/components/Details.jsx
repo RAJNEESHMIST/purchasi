@@ -15,7 +15,7 @@ export default function Details({ product }) {
         <Category categoryId={product?.categoryId} />
         <Brand brandId={product?.brandId} />
       </div>
-      <h1 className="font-semibold text-xl md:text-4xl">{product?.title}</h1>
+      <h1 className="font-semibold text-xl text-red-600 md:text-4xl">{product?.title}</h1>
       <Suspense fallback="Failed To Load">
         <RatingReview product={product} />
       </Suspense>
@@ -30,7 +30,7 @@ export default function Details({ product }) {
       </h3>
       <div className="flex flex-wrap items-center gap-4">
         <Link href={`/checkout?type=buynow&productId=${product?.id}`}>
-          <button className="bg-black text-white rounded-lg px-4 py-1.5">
+          <button className="bg-red-500 text-green-800 rounded-lg px-4 py-1.5">
             Buy Now
           </button>
         </Link>
@@ -62,7 +62,7 @@ async function Category({ categoryId }) {
   const category = await getCategory({ id: categoryId });
   return (
     <Link href={`/categories/${categoryId}`}>
-      <div className="flex items-center gap-1 border px-3 py-1 rounded-full">
+      <div className="flex items-center gap-1 border px-3 py-1 bg-gradient-to-r from-green-400 to-red-500 rounded-full">
         <img className="h-4" src={category?.imageURL} alt="" />
         <h4 className="text-xs font-semibold">{category?.name}</h4>
       </div>
@@ -73,7 +73,7 @@ async function Category({ categoryId }) {
 async function Brand({ brandId }) {
   const brand = await getBrand({ id: brandId });
   return (
-    <div className="flex items-center gap-1 border px-3 py-1 rounded-full">
+    <div className="flex items-center gap-1 border bg-gradient-to-r from-green-400 to-red-500 px-3 py-1 rounded-full">
       <img className="h-4" src={brand?.imageURL} alt="" />
       <h4 className="text-xs font-semibold">{brand?.name}</h4>
     </div>
@@ -85,8 +85,8 @@ async function RatingReview({ product }) {
   return (
     <div className="flex gap-3 items-center">
       <MyRating value={counts?.averageRating ?? 0} />
-      <h1 className="text-sm text-gray-400">
-        <span>{counts?.averageRating?.toFixed(1)}</span> ({counts?.totalReviews}
+      <h1 className="text-sm text-green-400">
+        <span className="text-red-700">{counts?.averageRating?.toFixed(1)}</span> ({counts?.totalReviews}
         )
       </h1>
     </div>

@@ -24,7 +24,7 @@ export default function Description({ data, handleData }) {
     handleData("description", value);
   };
   return (
-    <section className="flex flex-col gap-3 bg-white border p-4 rounded-xl h-full">
+    <section className="flex flex-col gap-3 bg-green-400 border p-4 rounded-xl h-full">
       <h1 className="font-semibold">Description</h1>
       <ReactQuill
         value={data?.description}

@@ -22,7 +22,7 @@ export default function Page() {
   }
 
   return (
-    <main className="flex flex-col gap-4 p-5">
+    <main className="flex flex-col bg-white gap-4 p-5 ">
       <h1 className="text-2xl font-semibold">My Orders</h1>
       {(!orders || orders?.length === 0) && (
         <div className="flex flex-col items-center justify-center gap-3 py-11">

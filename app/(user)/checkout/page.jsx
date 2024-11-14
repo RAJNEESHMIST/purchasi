@@ -63,8 +63,8 @@ export default function Page() {
         });
 
   return (
-    <main className="p-5 flex flex-col gap-4">
-      <h1 className="text-xl">Checkout</h1>
+    <main className="p-5 flex flex-col gap-4  ">
+      <h1 className="text-xl text-red-600">Checkout</h1>
       <Checkout productList={productList} />
     </main>
   );

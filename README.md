@@ -18,6 +18,14 @@ This is a Full Stack E-Commerce Website built with **Next.js 14**, **Tailwind CS
 - **Search**: Algolia
 
 ## Installation
+apiKey: "AIzaSyAago4NyQnSpMoWBo0J4IR9faCYT0MDvXI",
+  authDomain: "purchasey-2c462.firebaseapp.com",
+  projectId: "purchasey-2c462",
+  storageBucket: "purchasey-2c462.firebasestorage.app",
+  messagingSenderId: "288047381803",
+  appId: "1:288047381803:web:48f75f15203174de76d96e",
+  measurementId: "G-2B6THKBM52"
+
 
 1. Clone the repository:
    ```bash
@@ -153,3 +161,12 @@ To access the Admin Panel, use the following credentials:
 ## Conclusion
 
 This project provides a robust e-commerce solution leveraging modern technologies. Feel free to customize and extend its functionality as needed.
+NEXT_PUBLIC_FIREBASE_API_KEY="AIzaSyCSdL70wtMVPsFTqfJC5zxA-ZR1GxL0p6M"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="e-commerce-d75b0.firebaseapp.com"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="e-commerce-d75b0"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="e-commerce-d75b0.appspot.com"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="869034672196"
+NEXT_PUBLIC_FIREBASE_APP_ID="1:869034672196:web:329dd71ec73fce4793fc11"
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID="G-6DJ9TWMBPQ"
+https://console.firebase.google.com/v1/r/project/e-commerce-d75b0/firestore/indexes?create_composite=Ck9wcm9qZWN0cy9lLWNvbW1lcmNlLWQ3NWIwL2RhdGFiYXNlcy8oZGVmYXVsdCkvY29sbGVjdGlvbkdyb3Vwcy9vcmRlcnMvaW5kZXhlcy9fEAEaBwoDdWlkEAEaEwoPdGltZXN0YW1wQ3JlYXRlEAIaDAoIX19uYW1lX18QAg
+

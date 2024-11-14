@@ -9,7 +9,7 @@ export default function Header({ toggleSidebar }) {
   const { user } = useAuth();
   const { data: admin } = useAdmin({ email: user?.email });
   return (
-    <section className="fixed w-full top-0 flex items-center gap-3 bg-white border-b px-4 py-3">
+    <section className="fixed w-full top-0 flex items-center gap-3 bg-green-300 border-b px-4 py-3">
       <div className="flex justify-center items-center md:hidden">
         <button onClick={toggleSidebar}>
           <Menu />
@@ -20,7 +20,7 @@ export default function Header({ toggleSidebar }) {
         <div className="flex gap-2 items-center">
           <div className="md:flex flex-col items-end hidden">
             <h1 className="text-sm font-semibold">{admin?.name}</h1>
-            <h1 className="text-xs text-gray-600">{admin?.email}</h1>
+            <h1 className="text-xs text-red-600">{admin?.email}</h1>
           </div>
           <Avatar size="sm" src={admin?.imageURL} />
         </div>

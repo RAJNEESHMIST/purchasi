@@ -2,17 +2,14 @@
 
 import { useAuth } from "@/contexts/AuthContext";
 import { auth } from "@/lib/firebase";
-import { createUser } from "@/lib/firestore/user/write";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { Button } from "@nextui-org/react";
-import {
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-  updateProfile,
-} from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { GiEntryDoor } from "react-icons/gi";
+import { GiThink } from "react-icons/gi";
 
 export default function Page() {
   const { user } = useAuth();
@@ -39,13 +36,22 @@ export default function Page() {
   };
 
   return (
-    <main className="w-full flex justify-center items-center bg-gray-300 md:p-24 p-10 min-h-screen">
-      <section className="flex flex-col gap-3">
-        <div className="flex justify-center">
+    <main
+      className="w-full flex justify-center items-center min-h-screen p-10"
+      style={{
+        backgroundImage:
+          "url('https://cdn.pixabay.com/photo/2015/12/11/15/00/online-shopping-1088257_1280.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      <section className="flex flex-col gap-3 bg-gradient-to-b from-red-500 via-yellow-500 to-green-500 bg-opacity-10 md:p-10 p-5 rounded-xl shadow-lg md:min-w-[440px] w-full">
+        <div className="flex justify-center mb-4">
           <img className="h-12" src="/logo.png" alt="Logo" />
         </div>
-        <div className="flex flex-col gap-3 bg-white md:p-10 p-5 rounded-xl md:min-w-[440px] w-full">
-          <h1 className="font-bold text-xl">Forgot Password</h1>
+        <div className="flex flex-col gap-3">
+          <h1 className="font-bold text-xl text-center text-green-800">Forgot Password</h1>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -69,15 +75,15 @@ export default function Page() {
               isLoading={isLoading}
               isDisabled={isLoading}
               type="submit"
-              color="primary"
+              className="mt-4 bg-red-600 text-green-800"
             >
-              Send Reset Link
+              Send Reset Link <GiThink />
             </Button>
           </form>
-          <div className="flex justify-between">
+          <div className="flex justify-between mt-3">
             <Link href={`/login`}>
-              <button className="font-semibold text-sm text-blue-700">
-                Sign In
+              <button className="font-semibold text-sm text-red-700">
+              <GiEntryDoor className="text-2xl" />Sign In
               </button>
             </Link>
           </div>
